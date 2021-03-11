@@ -1,45 +1,22 @@
-﻿using Padaria.Data.Interface;
+using Padaria.Data.Interface;
 using Padaria.Domain;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 
 namespace Padaria.Data.Repository
 {
-    public class BaseRepository<T> where T : class, IEntity
+    public class BaseRepository<T> : IBaseRepo<T> where T : class, IEntity
     {
-        protected readonly Context contexto;
-        public BaseRepository()
+        protected readonly Contexto _contexto;
+        public BaseRepository(Contexto contexto)
         {
-            contexto = new Context();
+            _contexto = contexto;
         }
 
-        public virtual void Adicionar(T entity)
+        public void Dispose()
         {
-            contexto.Set<T>().Add(entity);
-            contexto.SaveChanges();
-        }
-
-        public void Editar(T entity)
-        {
-            contexto.Set<T>().Update(entity);
-            contexto.SaveChanges();
-        }
-
-        public T Selecionar(int id)
-        {
-            return contexto.Set<T>().FirstOrDefault(x => x.Id == id);
-        }
-
-        public List<T> SelecionarTudo()
-        {
-            return contexto.Set<T>().ToList();
-        }
-
-        public void Apagar(int id)
-        {
-            var entity = Selecionar(id);
-            contexto.Set<T>().Remove(entity);
-            contexto.SaveChanges();
+            _contexto.Dispose();
         }
     }
 }
