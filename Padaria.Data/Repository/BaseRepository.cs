@@ -1,4 +1,4 @@
-﻿using Padaria.Data.Interface;
+using Padaria.Data.Interface;
 using Padaria.Domain;
 using System;
 using System.Collections.Generic;
