@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Padaria.Data.Interface;
 using Padaria.Data.Repository;
 using Padaria.Domain.Model;
 using System.Collections.Generic;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Padaria.Controllers
 {
@@ -11,48 +10,43 @@ namespace Padaria.Controllers
     [ApiController]
     public class FornecedorController : ControllerBase
     {
-        private readonly FornecedorRepository repo;
-        public FornecedorController()
+        private readonly IFornecedorRepository _repo;
+        public FornecedorController(IFornecedorRepository repo)
         {
-            repo = new FornecedorRepository();
+            _repo = repo;
         }
 
-        // GET: api/<FornecedorController>
         [HttpGet]
         public IEnumerable<Fornecedor> Get()
         {
-            return repo.SelecionarTudo();
+            return _repo.SelecionarTudo();
         }
 
-        // GET api/<FornecedorController>/5
         [HttpGet("{id}")]
         public Fornecedor Get(int id)
         {
-            return repo.Selecionar(id);
+            return _repo.Selecionar(id);
         }
 
-        // POST api/<FornecedorController>
         [HttpPost]
         public IEnumerable<Fornecedor> Post([FromBody] Fornecedor fornecedor)
         {
-            repo.Adicionar(fornecedor);
-            return repo.SelecionarTudo();
+            _repo.Adicionar(fornecedor);
+            return _repo.SelecionarTudo();
         }
 
-        // PUT api/<FornecedorController>/5
         [HttpPut("{id}")]
         public IEnumerable<Fornecedor> Put(int id, [FromBody] Fornecedor fornecedor)
         {
-            repo.Editar(fornecedor);
-            return repo.SelecionarTudo();
+            _repo.Editar(fornecedor);
+            return _repo.SelecionarTudo();
         }
 
-        // DELETE api/<FornecedorController>/5
         [HttpDelete("{id}")]
         public IEnumerable<Fornecedor> Delete(int id)
         {
-            repo.Apagar(id);
-            return repo.SelecionarTudo();
+            _repo.Apagar(id);
+            return _repo.SelecionarTudo();
         }
     }
 }

@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Padaria.Data.Interface
 {
-    public interface ICaixaRepository : IBaseRepository<Caixa>
+    public interface IPerfilUsuarioRepository : IBaseRepository<PerfilUsuario>
     {
-
     }
 }
