@@ -5,7 +5,7 @@ using Padaria.Domain;
 
 namespace Padaria.Domain.Model
 {
-    public class Usuario:IEntity
+    public class Usuario : IEntity
     {
         public int Id { get; set; }
         public string Nome { get; set; }

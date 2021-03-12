@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Minha1Conexao.Data.Repository;
 using Padaria.Data.Interface;
 using Padaria.Domain.Model;
 
 namespace Padaria.Data.Repository
 {
-    class UsuarioRepository : IBaseRepo<Usuario>, IUsuario
+    public class UsuarioRepository : BaseRepository<Usuario>, IUsuarioRepository
     {
+        public UsuarioRepository(Contexto contexto) : base(contexto)
+        {
 
+        }
 
     }
 }
