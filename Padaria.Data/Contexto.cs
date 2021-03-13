@@ -12,6 +12,7 @@ namespace Padaria.Data
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<UnidadeMedida> UnidadeMedida { get; set; }
         public DbSet<TipoProducao> TipoProducao { get; set; }
+        public DbSet<Receita> Receita { get; set; }
 
         public Contexto(DbContextOptions<Contexto> options) : base(options)
         {
@@ -25,6 +26,7 @@ namespace Padaria.Data
             modelBuilder.ApplyConfiguration(new FornecedorMap());
             modelBuilder.ApplyConfiguration(new UnidadeMedidaMap());
             modelBuilder.ApplyConfiguration(new TipoProducaoMap());
+            modelBuilder.ApplyConfiguration(new ReceitaMap());
 
             base.OnModelCreating(modelBuilder);
         }

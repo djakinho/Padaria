@@ -40,6 +40,7 @@ namespace Padaria
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IUnidadeMedidaRepository, UnidadeMedidaRepository>();
             services.AddScoped<ITipoProducaoRepository, TipoProducaoRepository>();
+            services.AddScoped<IReceitaRepository, ReceitaRepository>();
 
             services.AddControllers();
 
