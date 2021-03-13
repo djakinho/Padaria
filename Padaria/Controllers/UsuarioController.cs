@@ -15,38 +15,83 @@ namespace Padaria.Controllers
         {
             _repo = repo;
         }
-
-        [HttpGet]
-        public IEnumerable<Usuario> Get()
+        [HttpGet("{select}")]
+        public IActionResult Get(string select)
         {
-            return _repo.SelecionarTudo();
+            try
+            {
+                if (string.IsNullOrEmpty(select))
+                    return Ok(_repo.SelectTodos());
+                else
+                    if (_repo.SelectPorNome(select).Nome != "" || _repo.SelectPorNome(select) != null)
+                    return Ok(_repo.SelectPorNome(select));
+                else if (_repo.SelectPorEmail(select).Email != "" || _repo.SelectPorNome(select) != null)
+                    return Ok(_repo.SelectPorEmail(select));
+
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+
         }
 
         [HttpGet("{id}")]
-        public Usuario Get(int id)
+        public IActionResult Get(int id)
         {
-            return _repo.Selecionar(id);
+            try
+            {
+                return Ok(_repo.Selecionar(id));
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
-        public IEnumerable<Usuario> Post([FromBody] Usuario Usuario)
+        public IActionResult Post([FromBody] Usuario Usuario)
         {
-            _repo.Adicionar(Usuario);
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Adicionar(Usuario);
+                return Ok("Operação Concluida");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPut("{id}")]
-        public IEnumerable<Usuario> Put(int id, [FromBody] Usuario Usuario)
+        public IActionResult Put([FromBody] Usuario Usuario)
         {
-            _repo.Editar(Usuario);
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Editar(Usuario);
+                return Ok("Operação Concluida");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+
         }
 
         [HttpDelete("{id}")]
-        public IEnumerable<Usuario> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _repo.Apagar(id);
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Apagar(id);
+                return Ok("Operação Concluida");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+
         }
     }
 }
