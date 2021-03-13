@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Padaria.Domain.Model
 {
-    public class UnidadeMedida
+    public class UnidadeMedida : IEntity
     {
         public int Id { get; set; }
         public string Unidade { get; set; }

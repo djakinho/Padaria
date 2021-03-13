@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Padaria.Domain.Model
 {
-    public class TipoProducao
+    public class TipoProducao : IEntity
     {
         public int Id { get; set; }
         public string Tipo { get; set; }

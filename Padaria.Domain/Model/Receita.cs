@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Padaria.Domain.Model
 {
-    public class Receita
+    public class Receita : IEntity
     {
         public int Id { get; set; }
         public string Nome { get; set; }

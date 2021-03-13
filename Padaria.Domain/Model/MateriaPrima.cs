@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Padaria.Domain.Model
 {
-    public class MateriaPrima
+    public class MateriaPrima : IEntity
     {
         public int Id { get; set; }
         public string Nome { get; set; }
