@@ -9,8 +9,9 @@ namespace Padaria.Data
         public DbSet<Caixa> Caixa { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<PerfilUsuario> Perfil { get; set; }
+        public DbSet<Fornecedor> Fornecedor { get; set; }
 
-        public Contexto(DbContextOptions options) : base(options)
+        public Contexto(DbContextOptions<Contexto> options) : base(options)
         {
         }
 
@@ -19,6 +20,7 @@ namespace Padaria.Data
             modelBuilder.ApplyConfiguration(new CaixaMap());
             modelBuilder.ApplyConfiguration(new UsuarioMap());
             modelBuilder.ApplyConfiguration(new PerfilUsuarioMap());
+            modelBuilder.ApplyConfiguration(new FornecedorMap());
 
             base.OnModelCreating(modelBuilder);
         }

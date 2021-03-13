@@ -17,23 +17,23 @@ namespace Padaria.Data.Map
                 .IsRequired();
 
             builder.Property(x => x.Email)
-                .HasColumnType("varchar(150")
+                .HasColumnType("varchar(150)")
                 .IsRequired();
 
             builder.Property(x => x.InscricaoEstatual)
-                .HasColumnType("varchar(9")
+                .HasColumnType("varchar(9)")
                 .IsRequired();
 
             builder.Property(x => x.RazaoSocial)
-                .HasColumnType("varchar(150")
+                .HasColumnType("varchar(150)")
                 .IsRequired();
 
             builder.Property(x => x.Site)
-                .HasColumnType("varchar(200")
+                .HasColumnType("varchar(200)")
                 .IsRequired();
 
             builder.Property(x => x.Telefone)
-                .HasColumnType("varchar(200");
+                .HasColumnType("varchar(200)");
 
         }
     }

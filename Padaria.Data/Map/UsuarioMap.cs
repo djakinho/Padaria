@@ -27,6 +27,10 @@ namespace Padaria.Data.Map
                 .HasColumnType("varchar(100)")
                 .IsRequired();
 
+            builder.Property(x => x.Senha)
+                .HasColumnType("varchar(100)")
+                .IsRequired();
+
             builder.Property(x => x.DataNasc)
                .HasColumnType("datetime")
                .IsRequired();

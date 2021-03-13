@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Padaria.Domain.Model
+﻿namespace Padaria.Domain.Model
 {
    public class PerfilUsuario : IEntity
     {
