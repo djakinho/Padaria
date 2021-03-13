@@ -1,6 +1,7 @@
 ﻿using Minha1Conexao.Data.Repository;
 using Padaria.Data.Interface;
 using Padaria.Domain.Model;
+using System.Linq;
 
 namespace Padaria.Data.Repository
 {
@@ -11,5 +12,9 @@ namespace Padaria.Data.Repository
 
         }
 
+        public Usuario SelecionarPorNomeESenha(string nome, string senha)
+        {
+            return _contexto.Set<Usuario>().Where(u => u.Nome == nome && u.Senha == senha).FirstOrDefault();
+        }
     }
 }
