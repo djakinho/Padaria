@@ -10,6 +10,7 @@ namespace Padaria.Domain.Model
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
+        public string Senha { get; set; }
         public DateTime DataNasc { get; set; }
         public int CPF { get; set; }
         public PerfilUsuario Perfil { get; set; }

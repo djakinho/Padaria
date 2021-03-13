@@ -7,8 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Padaria.Data;
-using Padaria.Data.Interface;
-using Padaria.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +28,6 @@ namespace Padaria
         {
             services.AddDbContext<Contexto>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ConexaoAzure")));
-
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
-            services.AddScoped<ICaixaRepository, CaixaRepository>();
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 
             services.AddControllers();
         }
