@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Padaria.Data.Interface
 {
-    interface ITipoProducaoRepository : IBaseRepository<TipoProducao>
+    public interface ITipoProducaoRepository : IBaseRepository<TipoProducao>
     {
     }
 }

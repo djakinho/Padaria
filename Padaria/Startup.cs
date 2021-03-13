@@ -38,6 +38,8 @@ namespace Padaria
             services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
             services.AddScoped<ICaixaRepository, CaixaRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IUnidadeMedidaRepository, UnidadeMedidaRepository>();
+            services.AddScoped<ITipoProducaoRepository, TipoProducaoRepository>();
 
             services.AddControllers();
 

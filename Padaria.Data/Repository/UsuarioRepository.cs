@@ -30,5 +30,9 @@ namespace Padaria.Data.Repository
             x.OrderBy(u => u.Nome);
             return x;
         }
+        public Usuario SelecionarPorNomeESenha(string nome, string senha)
+        {
+            return _contexto.Set<Usuario>().Where(u => u.Nome == nome && u.Senha == senha).FirstOrDefault();
+        }
     }
 }
