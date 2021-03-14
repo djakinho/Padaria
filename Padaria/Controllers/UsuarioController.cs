@@ -58,7 +58,6 @@ namespace Padaria.Controllers
             catch (System.Exception)
             {
                 return StatusCode(500);
-                throw;
             }
         }
 
