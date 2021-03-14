@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Padaria.Data.Interface;
 using Padaria.Data.Repository;
 using Padaria.Domain.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Padaria.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administrador")]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioRepository _repo;
@@ -15,24 +18,32 @@ namespace Padaria.Controllers
         {
             _repo = repo;
         }
-        [HttpGet("{select}")]
-        public IActionResult Get(string select)
+
+        [HttpGet]
+        public IActionResult Get([FromQuery]string email, [FromQuery]string nome)
         {
             try
             {
-                if (string.IsNullOrEmpty(select))
-                    return Ok(_repo.SelectTodos());
-                else
-                    if (_repo.SelectPorNome(select).Nome != "" || _repo.SelectPorNome(select) != null)
-                    return Ok(_repo.SelectPorNome(select));
-                else if (_repo.SelectPorEmail(select).Email != "" || _repo.SelectPorNome(select) != null)
-                    return Ok(_repo.SelectPorEmail(select));
-
-                return Ok();
+                if (!string.IsNullOrEmpty(email) && string.IsNullOrEmpty(nome))
+                {
+                    return Ok(_repo.SelectPorEmail(email).OrderBy(a => a.Nome));
+                }
+                else if (string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(nome))
+                {
+                    return Ok(_repo.SelectPorNome(nome).OrderBy(a => a.Nome));
+                }
+                else if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(nome))
+                {
+                    var usuariosPorEmail = _repo.SelectPorEmail(email);
+                    var usuariosPorNome = _repo.SelectPorNome(nome);
+                    return Ok(usuariosPorEmail.Union(usuariosPorNome).OrderBy(a => a.Nome));
+                } else {
+                    return Ok(_repo.SelecionarTudo());
+                }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, "Tivemos um problema");
             }
 
         }
@@ -47,6 +58,7 @@ namespace Padaria.Controllers
             catch (System.Exception)
             {
                 return StatusCode(500);
+                throw;
             }
         }
 

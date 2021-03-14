@@ -35,10 +35,7 @@ namespace Padaria.Data.Map
                .HasColumnType("datetime")
                .IsRequired();
 
-            builder.HasOne<PerfilUsuario>(x => x.Perfil);
-
-
-
+            builder.HasOne(x => x.Perfil);
         }
     }
 }
