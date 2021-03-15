@@ -9,7 +9,6 @@ namespace Padaria.Data.Interface
     {
         List<Usuario> SelectPorNome(string nome);
         List<Usuario> SelectPorEmail(string email);
-        List<Usuario> SelecionarTudo();
         Usuario SelecionarPorNomeESenha(string nome, string senha);
     }
 }
