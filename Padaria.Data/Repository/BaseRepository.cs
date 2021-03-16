@@ -26,12 +26,12 @@ namespace Minha1Conexao.Data.Repository
             _contexto.SaveChanges();
         }
 
-        public T Selecionar(int id)
+        public virtual T Selecionar(int id)
         {
             return _contexto.Set<T>().FirstOrDefault(x => x.Id == id);
         }
 
-        public List<T> SelecionarTudo()
+        public virtual List<T> SelecionarTudo()
         {
             return _contexto.Set<T>().ToList();
         }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Padaria.Data;
 using Padaria.Data.Interface;
 using Padaria.Data.Repository;
@@ -48,6 +49,22 @@ namespace Padaria
 
             services.AddControllers();
 
+            // Swagger configs
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Version = "v1",
+                    Title = "Padaria Grupo 3",
+                    Description = "API para uso no sistema da padaria do curso de C# Campinas Tech Talents",
+                    TermsOfService = new Uri("https://microsoft.com"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Grupo 3",
+                        Email = "tcc@ctt.com",
+                        Url = new Uri("https://microsoft.com")
+                    }
+                });
+            });
+
             // Token configs
             var key = Encoding.ASCII.GetBytes(Configuracoes.Secret);
             services.AddAuthentication(x =>
@@ -75,6 +92,13 @@ namespace Padaria
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
+            // Use swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("v1/swagger.json", "Padaria Grupo 3 - Swagger");
+            });
 
             app.UseRouting();
 

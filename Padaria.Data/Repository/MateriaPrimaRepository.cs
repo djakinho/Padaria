@@ -12,5 +12,10 @@ namespace Padaria.Data.Repository
         public MateriaPrimaRepository(Contexto contexto) : base(contexto)
         {
         }
+
+        public Usuario SelecionarPorNomeESenha(string nome, string senha)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
