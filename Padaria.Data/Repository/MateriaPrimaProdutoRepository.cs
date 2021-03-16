@@ -1,7 +1,9 @@
-﻿using Minha1Conexao.Data.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using Minha1Conexao.Data.Repository;
 using Padaria.Data.Interface;
 using Padaria.Domain.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Padaria.Data.Repository
 {
