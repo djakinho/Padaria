@@ -10,8 +10,8 @@ using Padaria.Data;
 namespace Padaria.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20210313182949_Adds TipoProducao_UnidadeMedida")]
-    partial class AddsTipoProducao_UnidadeMedida
+    [Migration("20210314010825_backPerfilToObject")]
+    partial class backPerfilToObject
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,38 +85,6 @@ namespace Padaria.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PerfilUsuario");
-                });
-
-            modelBuilder.Entity("Padaria.Domain.Model.TipoProducao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Tipo")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TipoProducao");
-                });
-
-            modelBuilder.Entity("Padaria.Domain.Model.UnidadeMedida", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Unidade")
-                        .IsRequired()
-                        .HasColumnType("varchar(10)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UnidadeMedida");
                 });
 
             modelBuilder.Entity("Padaria.Domain.Model.Usuario", b =>

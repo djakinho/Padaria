@@ -10,8 +10,8 @@ using Padaria.Data;
 namespace Padaria.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20210313232750_Maps ReceitaMap")]
-    partial class MapsReceitaMap
+    [Migration("20210316081001_After merge")]
+    partial class Aftermerge
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,25 +81,65 @@ namespace Padaria.Data.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
+                    b.Property<int>("IdUnidadeMedida")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(150)");
 
                     b.Property<double>("Quantidade")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ReceitaId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UnidadeMedidaId")
-                        .HasColumnType("int");
+                        .HasColumnType("float(24)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReceitaId");
-
-                    b.HasIndex("UnidadeMedidaId");
+                    b.HasIndex("IdUnidadeMedida");
 
                     b.ToTable("MateriaPrima");
+                });
+
+            modelBuilder.Entity("Padaria.Domain.Model.MateriaPrimaProduto", b =>
+                {
+                    b.Property<int>("IdMateriaPrima")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("IdMateriaPrima", "IdProduto");
+
+                    b.HasIndex("IdProduto");
+
+                    b.ToTable("MateriaPrimaProduto");
+                });
+
+            modelBuilder.Entity("Padaria.Domain.Model.MateriaPrimaReceita", b =>
+                {
+                    b.Property<int>("IdMateriaPrima")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdReceita")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("IdMateriaPrima", "IdReceita");
+
+                    b.HasIndex("IdReceita");
+
+                    b.ToTable("MateriaPrimaReceita");
                 });
 
             modelBuilder.Entity("Padaria.Domain.Model.PerfilUsuario", b =>
@@ -118,6 +158,40 @@ namespace Padaria.Data.Migrations
                     b.ToTable("PerfilUsuario");
                 });
 
+            modelBuilder.Entity("Padaria.Domain.Model.Produto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdReceita")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTipoProducao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("UnidadeMedida")
+                        .IsRequired()
+                        .HasColumnType("varchar(10)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdReceita")
+                        .IsUnique();
+
+                    b.HasIndex("IdTipoProducao");
+
+                    b.ToTable("Produto");
+                });
+
             modelBuilder.Entity("Padaria.Domain.Model.Receita", b =>
                 {
                     b.Property<int>("Id")
@@ -126,11 +200,12 @@ namespace Padaria.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ModoPreparo")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(MAX)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("varchar(MAX)");
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
@@ -187,12 +262,12 @@ namespace Padaria.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int>("IdPerfilUsuario")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
-
-                    b.Property<int?>("PerfilId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Senha")
                         .IsRequired()
@@ -200,29 +275,72 @@ namespace Padaria.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PerfilId");
+                    b.HasIndex("IdPerfilUsuario");
 
                     b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("Padaria.Domain.Model.MateriaPrima", b =>
                 {
-                    b.HasOne("Padaria.Domain.Model.Receita", null)
-                        .WithMany("Ingredientes")
-                        .HasForeignKey("ReceitaId")
+                    b.HasOne("Padaria.Domain.Model.UnidadeMedida", "UnidadeMedida")
+                        .WithMany("MateriaPrima")
+                        .HasForeignKey("IdUnidadeMedida")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Padaria.Domain.Model.MateriaPrimaProduto", b =>
+                {
+                    b.HasOne("Padaria.Domain.Model.MateriaPrima", "MateriaPrima")
+                        .WithMany("MateriaPrimaProduto")
+                        .HasForeignKey("IdMateriaPrima")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Padaria.Domain.Model.UnidadeMedida", "UnidadeMedida")
-                        .WithMany()
-                        .HasForeignKey("UnidadeMedidaId");
+                    b.HasOne("Padaria.Domain.Model.Produto", "Produto")
+                        .WithMany("MateriaPrimaProduto")
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Padaria.Domain.Model.MateriaPrimaReceita", b =>
+                {
+                    b.HasOne("Padaria.Domain.Model.MateriaPrima", "MateriaPrima")
+                        .WithMany("MateriaPrimaReceita")
+                        .HasForeignKey("IdMateriaPrima")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Padaria.Domain.Model.Receita", "Receita")
+                        .WithMany("MateriaPrimaReceita")
+                        .HasForeignKey("IdReceita")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Padaria.Domain.Model.Produto", b =>
+                {
+                    b.HasOne("Padaria.Domain.Model.Receita", "Receita")
+                        .WithOne("Produto")
+                        .HasForeignKey("Padaria.Domain.Model.Produto", "IdReceita")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Padaria.Domain.Model.TipoProducao", "TipoProducao")
+                        .WithMany("Produtos")
+                        .HasForeignKey("IdTipoProducao")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Padaria.Domain.Model.Usuario", b =>
                 {
                     b.HasOne("Padaria.Domain.Model.PerfilUsuario", "Perfil")
-                        .WithMany()
-                        .HasForeignKey("PerfilId");
+                        .WithMany("Usuario")
+                        .HasForeignKey("IdPerfilUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

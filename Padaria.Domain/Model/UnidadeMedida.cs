@@ -8,5 +8,6 @@ namespace Padaria.Domain.Model
     {
         public int Id { get; set; }
         public string Unidade { get; set; }
+        public List<MateriaPrima> MateriaPrima { get; set; }
     }
 }

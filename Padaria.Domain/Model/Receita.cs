@@ -9,6 +9,8 @@ namespace Padaria.Domain.Model
         public int Id { get; set; }
         public string Nome { get; set; }
         public string ModoPreparo { get; set; }
-        public List<MateriaPrima> Ingredientes { get; set; }
+        //public List<MateriaPrima> Ingredientes { get; set; }
+        public Produto Produto { get; set; }
+        public List<MateriaPrimaReceita> MateriaPrimaReceita { get; set; }
     }
 }

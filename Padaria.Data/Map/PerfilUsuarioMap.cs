@@ -15,6 +15,11 @@ namespace Padaria.Data.Map
             builder.Property(x => x.Perfil)
                 .HasColumnType("varchar(100)")
                 .IsRequired();
+
+            builder.HasMany(x => x.Usuario)
+                .WithOne(x => x.Perfil)
+                .HasForeignKey(x => x.IdPerfilUsuario)
+                .IsRequired();
         }
     }
 }

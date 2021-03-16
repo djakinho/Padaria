@@ -10,8 +10,8 @@ using Padaria.Data;
 namespace Padaria.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20210312204248_Adds Usuario_PerfilUsuario")]
-    partial class AddsUsuario_PerfilUsuario
+    [Migration("20210314002158_idPerfilToInt")]
+    partial class idPerfilToInt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,44 @@ namespace Padaria.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Caixa");
+                });
+
+            modelBuilder.Entity("Padaria.Domain.Model.Fornecedor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Cnpj")
+                        .IsRequired()
+                        .HasColumnType("varchar(14)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("InscricaoEstatual")
+                        .IsRequired()
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<string>("RazaoSocial")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("Site")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fornecedor");
                 });
 
             modelBuilder.Entity("Padaria.Domain.Model.PerfilUsuario", b =>
@@ -67,25 +105,20 @@ namespace Padaria.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int>("IdPerfil")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int?>("PerfilId")
-                        .HasColumnType("int");
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PerfilId");
-
                     b.ToTable("Usuario");
-                });
-
-            modelBuilder.Entity("Padaria.Domain.Model.Usuario", b =>
-                {
-                    b.HasOne("Padaria.Domain.Model.PerfilUsuario", "Perfil")
-                        .WithMany()
-                        .HasForeignKey("PerfilId");
                 });
 #pragma warning restore 612, 618
         }

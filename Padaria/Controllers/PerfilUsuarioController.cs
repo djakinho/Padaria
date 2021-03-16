@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Padaria.Data.Interface;
 using Padaria.Data.Repository;
 using Padaria.Domain.Model;
@@ -8,6 +9,7 @@ namespace Padaria.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administrador")]
     public class PerfilUsuarioController : ControllerBase
     {
         private readonly IPerfilUsuarioRepository _repo;

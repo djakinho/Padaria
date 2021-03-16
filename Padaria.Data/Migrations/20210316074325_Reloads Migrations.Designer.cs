@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Padaria.Data;
 
 namespace Padaria.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20210316074325_Reloads Migrations")]
+    partial class ReloadsMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,28 +96,6 @@ namespace Padaria.Data.Migrations
                     b.HasIndex("IdUnidadeMedida");
 
                     b.ToTable("MateriaPrima");
-                });
-
-            modelBuilder.Entity("Padaria.Domain.Model.MateriaPrimaProduto", b =>
-                {
-                    b.Property<int>("IdMateriaPrima")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProduto")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("IdMateriaPrima", "IdProduto");
-
-                    b.HasIndex("IdProduto");
-
-                    b.ToTable("MateriaPrimaProduto");
                 });
 
             modelBuilder.Entity("Padaria.Domain.Model.MateriaPrimaReceita", b =>
@@ -283,21 +263,6 @@ namespace Padaria.Data.Migrations
                     b.HasOne("Padaria.Domain.Model.UnidadeMedida", "UnidadeMedida")
                         .WithMany("MateriaPrima")
                         .HasForeignKey("IdUnidadeMedida")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Padaria.Domain.Model.MateriaPrimaProduto", b =>
-                {
-                    b.HasOne("Padaria.Domain.Model.MateriaPrima", "MateriaPrima")
-                        .WithMany("MateriaPrimaProduto")
-                        .HasForeignKey("IdMateriaPrima")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Padaria.Domain.Model.Produto", "Produto")
-                        .WithMany("MateriaPrimaProduto")
-                        .HasForeignKey("IdProduto")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

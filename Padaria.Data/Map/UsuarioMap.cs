@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Padaria.Data.Map
 {
-    class UsuarioMap : IEntityTypeConfiguration<Usuario>
+    public class UsuarioMap : IEntityTypeConfiguration<Usuario>
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
@@ -34,11 +34,6 @@ namespace Padaria.Data.Map
             builder.Property(x => x.DataNasc)
                .HasColumnType("datetime")
                .IsRequired();
-
-            builder.HasOne<PerfilUsuario>(x => x.Perfil);
-
-
-
         }
     }
 }

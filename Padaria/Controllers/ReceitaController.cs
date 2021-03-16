@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Padaria.Data.Interface;
-using Padaria.Data.Repository;
 using Padaria.Domain.Model;
 using System.Collections.Generic;
 
@@ -10,42 +9,42 @@ namespace Padaria.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "Estoquista,Administrador")]
-    public class FornecedorController : ControllerBase
+    public class ReceitaController : ControllerBase
     {
-        private readonly IFornecedorRepository _repo;
-        public FornecedorController(IFornecedorRepository repo)
+        private readonly IReceitaRepository _repo;
+        public ReceitaController(IReceitaRepository repo)
         {
             _repo = repo;
         }
 
         [HttpGet]
-        public IEnumerable<Fornecedor> Get()
+        public IEnumerable<Receita> Get()
         {
             return _repo.SelecionarTudo();
         }
 
         [HttpGet("{id}")]
-        public Fornecedor Get(int id)
+        public Receita Get(int id)
         {
             return _repo.Selecionar(id);
         }
 
         [HttpPost]
-        public IEnumerable<Fornecedor> Post([FromBody] Fornecedor fornecedor)
+        public IEnumerable<Receita> Post([FromBody] Receita fornecedor)
         {
             _repo.Adicionar(fornecedor);
             return _repo.SelecionarTudo();
         }
 
         [HttpPut("{id}")]
-        public IEnumerable<Fornecedor> Put(int id, [FromBody] Fornecedor fornecedor)
+        public IEnumerable<Receita> Put(int id, [FromBody] Receita receita)
         {
-            _repo.Editar(fornecedor);
+            _repo.Editar(receita);
             return _repo.SelecionarTudo();
         }
 
         [HttpDelete("{id}")]
-        public IEnumerable<Fornecedor> Delete(int id)
+        public IEnumerable<Receita> Delete(int id)
         {
             _repo.Apagar(id);
             return _repo.SelecionarTudo();
