@@ -41,6 +41,10 @@ namespace Padaria
             services.AddScoped<IUnidadeMedidaRepository, UnidadeMedidaRepository>();
             services.AddScoped<ITipoProducaoRepository, TipoProducaoRepository>();
             services.AddScoped<IReceitaRepository, ReceitaRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IMateriaPrimaReceitaRepository, MateriaPrimaReceitaRepository>();
+            services.AddScoped<IMateriaPrimaRepository, MateriaPrimaRepository>();
+
 
             services.AddControllers();
 

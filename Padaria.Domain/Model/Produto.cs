@@ -10,7 +10,9 @@ namespace Padaria.Domain.Model
         public string Nome { get; set; }
         public string UnidadeMedida { get; set; }
         public TipoProducao TipoProducao { get; set; }
+        public int IdTipoProducao { get; set; }
         public bool Ativo { get; set; }
-        public Receita MateriaisUsados { get; set; }
+        public Receita Receita { get; set; }
+        public int IdReceita { get; set; }
     }
 }

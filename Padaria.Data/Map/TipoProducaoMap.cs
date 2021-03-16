@@ -18,6 +18,11 @@ namespace Padaria.Data.Map
             builder.Property(x => x.Tipo)
                 .HasColumnType("varchar(50)")
                 .IsRequired();
+
+            builder.HasMany<Produto>(x => x.Produtos)
+                .WithOne(x => x.TipoProducao)
+                .HasForeignKey(x => x.IdTipoProducao)
+                .IsRequired();
         }
     }
 }
