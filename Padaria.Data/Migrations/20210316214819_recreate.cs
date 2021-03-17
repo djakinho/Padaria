@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Padaria.Data.Migrations
 {
-    public partial class ReloadsMigrations : Migration
+    public partial class recreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -167,6 +167,32 @@ namespace Padaria.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MateriaPrimaProduto",
+                columns: table => new
+                {
+                    IdMateriaPrima = table.Column<int>(nullable: false),
+                    IdProduto = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MateriaPrimaProduto", x => new { x.IdMateriaPrima, x.IdProduto });
+                    table.ForeignKey(
+                        name: "FK_MateriaPrimaProduto_MateriaPrima_IdMateriaPrima",
+                        column: x => x.IdMateriaPrima,
+                        principalTable: "MateriaPrima",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MateriaPrimaProduto_Produto_IdProduto",
+                        column: x => x.IdProduto,
+                        principalTable: "Produto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MateriaPrimaReceita",
                 columns: table => new
                 {
@@ -196,6 +222,11 @@ namespace Padaria.Data.Migrations
                 name: "IX_MateriaPrima_IdUnidadeMedida",
                 table: "MateriaPrima",
                 column: "IdUnidadeMedida");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MateriaPrimaProduto_IdProduto",
+                table: "MateriaPrimaProduto",
+                column: "IdProduto");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MateriaPrimaReceita_IdReceita",
@@ -228,25 +259,28 @@ namespace Padaria.Data.Migrations
                 name: "Fornecedor");
 
             migrationBuilder.DropTable(
-                name: "MateriaPrimaReceita");
+                name: "MateriaPrimaProduto");
 
             migrationBuilder.DropTable(
-                name: "Produto");
+                name: "MateriaPrimaReceita");
 
             migrationBuilder.DropTable(
                 name: "Usuario");
 
             migrationBuilder.DropTable(
+                name: "Produto");
+
+            migrationBuilder.DropTable(
                 name: "MateriaPrima");
+
+            migrationBuilder.DropTable(
+                name: "PerfilUsuario");
 
             migrationBuilder.DropTable(
                 name: "Receita");
 
             migrationBuilder.DropTable(
                 name: "TipoProducao");
-
-            migrationBuilder.DropTable(
-                name: "PerfilUsuario");
 
             migrationBuilder.DropTable(
                 name: "UnidadeMedida");
