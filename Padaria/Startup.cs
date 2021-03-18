@@ -29,6 +29,7 @@ namespace Padaria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region DB
             services.AddDbContext<Contexto>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ConexaoAzure")));
 
@@ -42,11 +43,18 @@ namespace Padaria
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IMateriaPrimaReceitaRepository, MateriaPrimaReceitaRepository>();
             services.AddScoped<IMateriaPrimaRepository, MateriaPrimaRepository>();
+            #endregion
 
 
-            services.AddControllers();
+            services.AddControllers()
+            #region Não Serializar nulos
+                .AddJsonOptions(options => {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                });
+            #endregion
 
             // Swagger configs
+            #region Swagger
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { 
                     Version = "v1",
@@ -81,8 +89,10 @@ namespace Padaria
                     }
                 });
             });
+            #endregion
 
             // Token configs
+            #region Configurações do Token
             var key = Encoding.ASCII.GetBytes(Configuracoes.Secret);
             services.AddAuthentication(x =>
             {
@@ -100,6 +110,7 @@ namespace Padaria
                     ValidateAudience = false
                 };
             });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
