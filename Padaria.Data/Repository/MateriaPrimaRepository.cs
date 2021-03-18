@@ -13,6 +13,11 @@ namespace Padaria.Data.Repository
         {
         }
 
+        public bool Any(Func<object, bool> p)
+        {
+            throw new NotImplementedException();
+        }
+
         public Usuario SelecionarPorNomeESenha(string nome, string senha)
         {
             throw new NotImplementedException();

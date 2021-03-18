@@ -53,7 +53,18 @@ namespace Padaria.Controllers
         {
             try
             {
-                return Ok(_repo.Selecionar(id));
+                if (string.IsNullOrWhiteSpace(id.ToString()))
+                {
+                    return Ok(_repo.SelecionarTudo());
+                }
+                else if (_repo.Selecionar(id) == null)
+                {
+                    return NotFound(id);
+                }
+                else
+                {
+                    return Ok(_repo.Selecionar(id));
+                }
             }
             catch (System.Exception)
             {
@@ -66,6 +77,18 @@ namespace Padaria.Controllers
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(Usuario.Nome)
+                    || string.IsNullOrWhiteSpace(Usuario.Email)
+                    || string.IsNullOrWhiteSpace(Usuario.Senha)
+                    || string.IsNullOrWhiteSpace(Usuario.CPF))
+                {
+                    return BadRequest("Todos os campos precisam ser preenchidos");
+                }
+                else if (Usuario.IdPerfilUsuario <= 0 || Usuario.IdPerfilUsuario > 4)
+                {
+                    return BadRequest("O IdPerfilUsuario precisa ser válido");
+                }
+
                 _repo.Adicionar(Usuario);
                 return Ok("Operação Concluida");
             }
@@ -80,6 +103,18 @@ namespace Padaria.Controllers
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(Usuario.Nome)
+                    || string.IsNullOrWhiteSpace(Usuario.Email)
+                    || string.IsNullOrWhiteSpace(Usuario.Senha)
+                    || string.IsNullOrWhiteSpace(Usuario.CPF))
+                {
+                    return BadRequest("Todos os campos precisam ser preenchidos");
+                }
+                else if (Usuario.IdPerfilUsuario <= 0 || Usuario.IdPerfilUsuario > 4)
+                {
+                    return BadRequest("O IdPerfilUsuario precisa ser válido");
+                }
+
                 _repo.Editar(Usuario);
                 return Ok("Operação Concluida");
             }
