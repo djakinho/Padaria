@@ -12,6 +12,7 @@ namespace Padaria.Domain.Model
         public int IdUnidadeMedida { get; set; }
         public double Quantidade { get; set; }
         public bool Ativo { get; set; }
+        public Produto Produto { get; set; }
         public List<MateriaPrimaReceita> MateriaPrimaReceita { get; set; }
         public List<MateriaPrimaProduto> MateriaPrimaProduto { get; set; }
     }
