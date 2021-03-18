@@ -10,8 +10,8 @@ using Padaria.Data;
 namespace Padaria.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20210316081001_After merge")]
-    partial class Aftermerge
+    [Migration("20210316214819_recreate")]
+    partial class recreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

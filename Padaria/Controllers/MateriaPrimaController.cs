@@ -15,12 +15,6 @@ namespace Padaria.Controllers
     {
 
         private readonly IMateriaPrimaRepository _matRepo;
-        private readonly Contexto _contexto;
-
-        public MateriaPrimaController(Contexto contexto)
-        {
-            _contexto = contexto;
-        }
 
         public MateriaPrimaController(IMateriaPrimaRepository matRepo)
         {
