@@ -8,43 +8,43 @@ namespace Padaria.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Estoquista,Administrador")]
-    public class ReceitaController : ControllerBase
+    [Authorize(Roles = "Vendedor,Administrador")]
+    public class TipoPagamentoController : ControllerBase
     {
-        private readonly IReceitaRepository _repo;
-        public ReceitaController(IReceitaRepository repo)
+        private readonly ITipoPagamentoRepository _repo;
+        public TipoPagamentoController(ITipoPagamentoRepository repo)
         {
             _repo = repo;
         }
 
         [HttpGet]
-        public IEnumerable<Receita> Get()
+        public IEnumerable<TipoPagamento> Get()
         {
             return _repo.SelecionarTudo();
         }
 
         [HttpGet("{id}")]
-        public Receita Get(int id)
+        public TipoPagamento Get(int id)
         {
             return _repo.Selecionar(id);
         }
 
         [HttpPost]
-        public IEnumerable<Receita> Post([FromBody] Receita receita)
+        public IEnumerable<TipoPagamento> Post([FromBody] TipoPagamento tipoPagamento)
         {
-            _repo.Adicionar(receita);
+            _repo.Adicionar(tipoPagamento);
             return _repo.SelecionarTudo();
         }
 
         [HttpPut("{id}")]
-        public IEnumerable<Receita> Put(int id, [FromBody] Receita receita)
+        public IEnumerable<TipoPagamento> Put(int id, [FromBody] TipoPagamento tipoPagamento)
         {
-            _repo.Editar(receita);
+            _repo.Editar(tipoPagamento);
             return _repo.SelecionarTudo();
         }
 
         [HttpDelete("{id}")]
-        public IEnumerable<Receita> Delete(int id)
+        public IEnumerable<TipoPagamento> Delete(int id)
         {
             _repo.Apagar(id);
             return _repo.SelecionarTudo();
