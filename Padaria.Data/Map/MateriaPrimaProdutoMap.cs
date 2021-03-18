@@ -14,7 +14,7 @@ namespace Padaria.Data.Map
 
             builder.HasOne(x => x.MateriaPrima)
                 .WithMany(x => x.MateriaPrimaProduto)
-                .HasForeignKey(x => x.MateriaPrima);
+                .HasForeignKey(x => x.IdMateriaPrima);
 
             builder.HasOne(x => x.Produto)
                 .WithMany(x => x.MateriaPrimaProduto)

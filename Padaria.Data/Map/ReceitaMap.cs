@@ -19,13 +19,13 @@ namespace Padaria.Data.Map
                 .HasColumnType("varchar(50)")
                 .IsRequired();
 
-            builder.Property(x => x.Nome)
+            builder.Property(x => x.ModoPreparo)
                 .HasColumnType("varchar(MAX)")
                 .IsRequired();
 
-            builder.HasMany(x => x.Ingredientes)
-                .WithOne()
-                .IsRequired();
+            builder.HasOne(x => x.Produto)
+                .WithOne(x => x.Receita)
+                .HasForeignKey<Produto>(x => x.IdReceita);
         }
     }
 }

@@ -98,7 +98,7 @@ namespace Padaria.Controllers
             //se IdMateriaPrima == IdProduto não pode apagar
             try
             {
-                _matRepo.Apagar(id);
+            _matRepo.Apagar(id);
                 return Ok(_matRepo.SelecionarTudo());
             }
             catch(System.Exception)

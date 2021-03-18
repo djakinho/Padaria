@@ -14,5 +14,6 @@ namespace Padaria.Domain.Model
         public DateTime DataNasc { get; set; }
         public string CPF { get; set; }
         public PerfilUsuario Perfil { get; set; }
+        public int IdPerfilUsuario { get; set; }
     }
 }

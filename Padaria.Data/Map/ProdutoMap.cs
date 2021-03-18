@@ -11,7 +11,21 @@ namespace Padaria.Data.Map
     {
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("Produto");
+
+            builder.HasKey(i => i.Id);
+
+            builder.Property(x => x.Nome)
+                .HasColumnType("varchar(100)")
+                .IsRequired();
+
+            builder.Property(x => x.UnidadeMedida)
+                .HasColumnType("varchar(10)")
+                .IsRequired();
+
+            builder.Property(x => x.Ativo)
+                .IsRequired();
+
         }
     }
 }

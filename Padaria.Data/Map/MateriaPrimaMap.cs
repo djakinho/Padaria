@@ -19,15 +19,11 @@ namespace Padaria.Data.Map
                 .IsRequired();
 
             builder.Property(x => x.Nome)
-                .HasColumnType("var(150)")
+                .HasColumnType("varchar(150)")
                 .IsRequired();
 
             builder.Property(x => x.Quantidade)
-                .HasColumnType("varchar(10)")
-                .IsRequired();
-
-            builder.Property(x => x.UnidadeMedida)
-                .HasColumnType("varchar(10)")
+                .HasColumnType("float(24)")
                 .IsRequired();
 
         }
