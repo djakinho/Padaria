@@ -1,22 +1,19 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Padaria.Data;
 using Padaria.Data.Interface;
 using Padaria.Data.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
 
 namespace Padaria
 {
@@ -61,6 +58,26 @@ namespace Padaria
                         Name = "Grupo 3",
                         Email = "tcc@ctt.com",
                         Url = new Uri("https://microsoft.com")
+                    }
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+                    Description = "Formato 'Bearer {token}'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
                     }
                 });
             });
