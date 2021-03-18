@@ -22,37 +22,71 @@ namespace Padaria.Controllers
         }
         // GET: api/<MateriaPrimaProdutoController>
         [HttpGet]
-        public IEnumerable<MateriaPrimaReceita> Get()
+        public IActionResult Get()
         {
-            return _repo.SelecionarTudoCompleto();
+            try
+            {
+                return Ok(_repo.SelecionarTudoCompleto());
+            }
+            catch(System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpGet("{id}")]
-        public MateriaPrimaReceita Get(int id)
+        public IActionResult Get(int id)
         {
-            return _repo.Selecionar(id);
+            try
+            {
+                return Ok(_repo.Selecionar(id));
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
-        public IEnumerable<MateriaPrimaReceita> Post([FromBody] MateriaPrimaReceita tp)
+        public IActionResult Post([FromBody] MateriaPrimaReceita tp)
         {
-            _repo.Adicionar(tp);
-
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Adicionar(tp);
+                return Ok(_repo.SelecionarTudo());
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPut]
-        public IEnumerable<MateriaPrimaReceita> Put([FromBody] MateriaPrimaReceita tp)
+        public IActionResult Put([FromBody] MateriaPrimaReceita tp)
         {
-            _repo.Editar(tp);
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Editar(tp);
+                return Ok(_repo.SelecionarTudo());
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpDelete("{id}")]
-        public IEnumerable<MateriaPrimaReceita> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _repo.Apagar(id);
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Apagar(id);
+                return Ok(_repo.SelecionarTudo());
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

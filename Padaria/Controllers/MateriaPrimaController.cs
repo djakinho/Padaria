@@ -15,6 +15,12 @@ namespace Padaria.Controllers
     {
 
         private readonly IMateriaPrimaRepository _matRepo;
+        private readonly Contexto _contexto;
+
+        public MateriaPrimaController(Contexto contexto)
+        {
+            _contexto = contexto;
+        }
 
         public MateriaPrimaController(IMateriaPrimaRepository matRepo)
         {
@@ -35,9 +41,16 @@ namespace Padaria.Controllers
 
         // GET api/<MateriaPrimaController>/5
         [HttpGet("{id}")]
-        public MateriaPrima Get(int id)
+        public IActionResult Get(int id)
         {
-            return _matRepo.Selecionar(id);
+            try
+            {
+                return Ok(_matRepo.Selecionar(id));
+            }
+            catch(System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         // POST api/<MateriaPrimaController>
@@ -80,12 +93,18 @@ namespace Padaria.Controllers
             }
         }
 
-        private IEnumerable<MateriaPrima> Delete(int id)
+        private IActionResult Delete(int id)
         {
             //se IdMateriaPrima == IdProduto não pode apagar
-
+            try
+            {
             _matRepo.Apagar(id);
-            return _matRepo.SelecionarTudo();
+                return Ok(_matRepo.SelecionarTudo());
+            }
+            catch(System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

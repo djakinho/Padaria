@@ -19,36 +19,71 @@ namespace Padaria.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Fornecedor> Get()
+        public IActionResult Get()
         {
-            return _repo.SelecionarTudo();
+            try
+            {
+                return Ok(_repo.SelecionarTudo());
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpGet("{id}")]
-        public Fornecedor Get(int id)
+        public IActionResult Get(int id)
         {
-            return _repo.Selecionar(id);
+            try
+            {
+                return Ok(_repo.Selecionar(id));
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
-        public IEnumerable<Fornecedor> Post([FromBody] Fornecedor fornecedor)
+        public IActionResult Post([FromBody] Fornecedor fornecedor)
         {
-            _repo.Adicionar(fornecedor);
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Adicionar(fornecedor);
+                return Ok(_repo.SelecionarTudo());
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPut("{id}")]
-        public IEnumerable<Fornecedor> Put(int id, [FromBody] Fornecedor fornecedor)
+        public IActionResult Put(int id, [FromBody] Fornecedor fornecedor)
         {
-            _repo.Editar(fornecedor);
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Editar(fornecedor);
+                return Ok(_repo.SelecionarTudo());
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpDelete("{id}")]
-        public IEnumerable<Fornecedor> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _repo.Apagar(id);
-            return _repo.SelecionarTudo();
+            try
+            {
+                _repo.Apagar(id);
+                return Ok(_repo.SelecionarTudo());
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }
