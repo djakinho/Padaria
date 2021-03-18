@@ -15,12 +15,7 @@ namespace Padaria.Controllers
     {
 
         private readonly IMateriaPrimaRepository _matRepo;
-        private readonly Contexto _contexto;
 
-        public MateriaPrimaController(Contexto contexto)
-        {
-            _contexto = contexto;
-        }
 
         public MateriaPrimaController(IMateriaPrimaRepository matRepo)
         {
@@ -28,23 +23,15 @@ namespace Padaria.Controllers
         }
 
 
-       /* public async Task<IActionResult> Index()
-        {
-            var contexto - _contexto.MateriaPrima.Adicionar
-        }
-        [HttpGet]
-        public IEnumerable<MateriaPrima> Get()
-        {
-            var matRepo = _matRepo.Materia.Adicionar(m => m.)
-            return _matRepo.SelecionarTudo();
-        }*/
-
-        // GET api/<MateriaPrimaController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             try
             {
+                if(id == null || _matRepo == null)
+                {
+                    return NotFound();
+                }
                 return Ok(_matRepo.Selecionar(id));
             }
             catch(System.Exception)
@@ -96,8 +83,9 @@ namespace Padaria.Controllers
         private IActionResult Delete(int id)
         {
             //se IdMateriaPrima == IdProduto não pode apagar
-            try
-            {
+            try { 
+
+                
             _matRepo.Apagar(id);
                 return Ok(_matRepo.SelecionarTudo());
             }
