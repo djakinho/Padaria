@@ -15,7 +15,7 @@ namespace Padaria.Data.Map
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Produtos);
+            //builder.Property(x => x.Produtos);
         }
     }
 }
