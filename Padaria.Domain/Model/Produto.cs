@@ -17,6 +17,7 @@ namespace Padaria.Domain.Model
         public MateriaPrima MateriaPrima { get; set; }
         public int IdMateriaPrima { get; set; }
         public List<MateriaPrimaProduto> MateriaPrimaProduto { get; set; }
-       
+        public List<RealizarVendaProduto> RealizarVendaProduto { get; set; }
+
     }
 }

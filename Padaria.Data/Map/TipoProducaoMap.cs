@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Padaria.Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Padaria.Data.Map
 {
@@ -19,9 +16,9 @@ namespace Padaria.Data.Map
                 .HasColumnType("varchar(50)")
                 .IsRequired();
 
-            builder.HasMany<Produto>(x => x.Produtos)
+            builder.HasOne(x => x.EstoqueProduto)
                 .WithOne(x => x.TipoProducao)
-                .HasForeignKey(x => x.IdTipoProducao)
+                .HasForeignKey<EstoqueProduto>(x => x.IdTipoProducao)
                 .IsRequired();
         }
     }

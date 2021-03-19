@@ -17,11 +17,13 @@ namespace Padaria.Data
         public DbSet<PerfilUsuario> Perfil { get; set; }
         public DbSet<Produto> Produto { get; set; }
         public DbSet<RealizarVenda> RealizarVenda { get; set; }
+        public DbSet<RealizarVendaProduto> RealizarVendaProduto { get; set; }
         public DbSet<Receita> Receita { get; set; }
         public DbSet<TipoPagamento> TipoPagamento { get; set; }
         public DbSet<TipoProducao> TipoProducao { get; set; }
         public DbSet<UnidadeMedida> UnidadeMedida { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
+
 
         public Contexto(DbContextOptions<Contexto> options) : base(options)
         {
@@ -39,6 +41,7 @@ namespace Padaria.Data
             modelBuilder.ApplyConfiguration(new PerfilUsuarioMap());
             modelBuilder.ApplyConfiguration(new ProdutoMap());
             modelBuilder.ApplyConfiguration(new RealizarVendaMap());
+            modelBuilder.ApplyConfiguration(new RealizarVendaProdutoMap());
             modelBuilder.ApplyConfiguration(new ReceitaMap());
             modelBuilder.ApplyConfiguration(new TipoPagamentoMap());
             modelBuilder.ApplyConfiguration(new TipoProducaoMap());
