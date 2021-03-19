@@ -15,5 +15,9 @@ namespace Padaria.Domain.Model
         public string CPF { get; set; }
         public PerfilUsuario Perfil { get; set; }
         public int IdPerfilUsuario { get; set; }
+        public FechamentoCaixa FechamentoCaixa { get; set; }
+        public int IdFechamentoCaixa { get; set; }
+        public  RealizarVenda RealizarVenda { get; set; }
+        public int IdRealizarVenda { get; set; }
     }
 }
