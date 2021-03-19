@@ -14,6 +14,10 @@ namespace Padaria.Data.Map
             builder.ToTable("TipoPagamento");
 
             builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.PagamentoTipo)
+                .HasColumnType("varchar(20)")
+                .IsRequired();
         }
     }
 }

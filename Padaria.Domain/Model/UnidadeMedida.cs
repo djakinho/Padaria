@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Padaria.Domain.Model
 {
@@ -8,6 +6,8 @@ namespace Padaria.Domain.Model
     {
         public int Id { get; set; }
         public string Unidade { get; set; }
+        public EstoqueProduto EstoqueProduto { get; set; }
+        public int IdEstoqueProduto { get; set; }
         public List<MateriaPrima> MateriaPrima { get; set; }
     }
 }

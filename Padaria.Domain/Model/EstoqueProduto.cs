@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Padaria.Domain.Model
+﻿namespace Padaria.Domain.Model
 {
     public class EstoqueProduto : IEntity
     {
@@ -11,10 +7,13 @@ namespace Padaria.Domain.Model
         public double Quantidade { get; set; }
         public bool Ativo { get; set; }
         public TipoProducao TipoProducao { get; set; }
-        public Produto IdProduto { get; set; }
-        public MateriaPrima IdMateriaPrima { get; set; }
+        public int IdTipoProducao { get; set; }
+        public Produto Produto { get; set; }
+        public int IdProduto { get; set; }
+        public MateriaPrima MateriaPrima { get; set; }
+        public int IdMateriaPrima { get; set; }
         public UnidadeMedida UnidadeMedida { get; set; }
-
+        public int IdUnidadeMedida { get; set; }
 
     }
 }
