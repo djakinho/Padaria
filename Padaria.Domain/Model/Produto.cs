@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Padaria.Domain.Model
 {
@@ -14,6 +12,11 @@ namespace Padaria.Domain.Model
         public bool Ativo { get; set; }
         public Receita Receita { get; set; }
         public int IdReceita { get; set; }
+        public EstoqueProduto EstoqueProduto { get; set; }
+        public int IdEstoqueProduto { get; set; }
+        public MateriaPrima MateriaPrima { get; set; }
+        public int IdMateriaPrima { get; set; }
         public List<MateriaPrimaProduto> MateriaPrimaProduto { get; set; }
+       
     }
 }
