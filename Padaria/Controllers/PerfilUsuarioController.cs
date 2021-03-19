@@ -19,22 +19,33 @@ namespace Padaria.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PerfilUsuario> Get()
+        public IActionResult Get()
         {
-            return _repo.SelecionarTudo();
+            return Ok(_repo.SelecionarTudo());
         }
 
         [HttpGet("{id}")]
-        public PerfilUsuario Get(int id)
+        public IActionResult Get(int id)
         {
-            return _repo.Selecionar(id);
+            try
+            {
+                if (id <= 0)
+                {
+                    return BadRequest("Por favor, entre um Id válido");
+                }
+                return Ok(_repo.Selecionar(id));
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         [HttpPost]
-        public IEnumerable<PerfilUsuario> Post([FromBody] PerfilUsuario PerfilUsuario)
+        public IActionResult Post([FromBody] PerfilUsuario PerfilUsuario)
         {
             _repo.Adicionar(PerfilUsuario);
-            return _repo.SelecionarTudo();
+            return Ok(_repo.SelecionarTudo());
         }
 
         [HttpPut("{id}")]

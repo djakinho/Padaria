@@ -9,5 +9,6 @@ namespace Padaria.Domain.Model
         public DateTime DataFechamento { get; set; }
         public bool SituacaoCaixa { get; set; }
         public Usuario Usuario { get; set; }
+        public int IdUsuario { get; set; }
     }
 }

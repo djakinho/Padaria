@@ -28,7 +28,7 @@ namespace Padaria.Controllers
         {
             try
             {
-                if(id == null || _matRepo == null)
+                if(_matRepo == null)
                 {
                     return NotFound();
                 }

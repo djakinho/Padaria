@@ -38,7 +38,7 @@ namespace Padaria.Controllers
                     var usuariosPorNome = _repo.SelectPorNome(nome);
                     return Ok(usuariosPorEmail.Union(usuariosPorNome).OrderBy(a => a.Nome));
                 } else {
-                    return Ok(_repo.SelecionarTudo());
+                    return Ok(_repo.SelecionarTudo().OrderBy(x => x.Nome));
                 }
             }
             catch (System.Exception ex)
@@ -55,7 +55,7 @@ namespace Padaria.Controllers
             {
                 if (string.IsNullOrWhiteSpace(id.ToString()))
                 {
-                    return Ok(_repo.SelecionarTudo());
+                    return Ok(_repo.SelecionarTudo().OrderBy(x => x.Nome));
                 }
                 else if (_repo.Selecionar(id) == null)
                 {
@@ -84,7 +84,7 @@ namespace Padaria.Controllers
                 {
                     return BadRequest("Todos os campos precisam ser preenchidos");
                 }
-                else if (Usuario.IdPerfilUsuario <= 0 || Usuario.IdPerfilUsuario > 4)
+                else if (Usuario.IdPerfilUsuario <= 0)
                 {
                     return BadRequest("O IdPerfilUsuario precisa ser válido");
                 }
@@ -98,7 +98,7 @@ namespace Padaria.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]   // Id precisa ser especificado no EndPoint e no corpo (Body) do JSON
         public IActionResult Put([FromBody] Usuario Usuario)
         {
             try
@@ -110,7 +110,7 @@ namespace Padaria.Controllers
                 {
                     return BadRequest("Todos os campos precisam ser preenchidos");
                 }
-                else if (Usuario.IdPerfilUsuario <= 0 || Usuario.IdPerfilUsuario > 4)
+                else if (Usuario.IdPerfilUsuario <= 0)
                 {
                     return BadRequest("O IdPerfilUsuario precisa ser válido");
                 }
@@ -130,6 +130,9 @@ namespace Padaria.Controllers
         {
             try
             {
+                if (_repo.Selecionar(id) == null)
+                    return NotFound("Id de Usuário não encontrado, por favor entre um valor válido");
+
                 _repo.Apagar(id);
                 return Ok("Operação Concluida");
             }

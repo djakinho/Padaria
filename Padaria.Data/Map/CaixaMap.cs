@@ -14,6 +14,8 @@ namespace Padaria.Data.Map
             builder.ToTable("Caixa");
 
             builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Produtos);
         }
     }
 }

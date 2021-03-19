@@ -26,6 +26,13 @@ namespace Padaria.Data.Map
                 .HasColumnType("float(24)")
                 .IsRequired();
 
+            builder.HasOne(x => x.Produto)
+                .WithOne(x => x.MateriaPrima)
+                .HasForeignKey<Produto>(x => x.IdMateriaPrima);
+
+            builder.HasOne(x => x.EstoqueProduto)
+                .WithOne(x => x.MateriaPrima)
+                .HasForeignKey<EstoqueProduto>(x => x.IdMateriaPrima);
         }
     }
 }
